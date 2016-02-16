@@ -262,8 +262,8 @@ class PluginUpdater {
 
 		// Since we are hosted in GitHub, our plugin folder would have a dirname of
 		// reponame-tagname change it to our original one:
-		$plugin_folder = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . dirname( $this->plugin_slug );
-		$wp_filesystem->move( $result['destination'], $plugin_folder );
+		$plugin_folder = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . dirname( $this->plugin_file );
+		$wp_filesystem->move( $result['destination'], $plugin_folder, true );
 		$result['destination'] = $plugin_folder;
 
 		// Re-activate plugin if needed
