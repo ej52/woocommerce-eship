@@ -1,2 +1,5 @@
+**1.0.1 - 16/02/2016**
+* Fix: Rename plugin folder after update.
+
 **1.0.0 - 16/02/2016**
 * Initial Release
