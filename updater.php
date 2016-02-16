@@ -132,15 +132,11 @@ class PluginUpdater {
 		// Get GitHub release information
 		$release = $this->release_info();
 		if ( empty( $release ) ) {
-			$release = $this->release_info( $this->plugin_data["Version"] );
-		}
-
-		if ( empty( $release ) ) {
 			return $response;
 		}
 
 		// Add our plugin information
-		$response->last_updated 	= $release->published_at;
+		$response->last_updated 	= $release->created_at;
 		$response->slug 			= $this->plugin_slug;
 		$response->name  			= $this->plugin_data["Name"];
 		$response->version 			= $release->tag_name;
@@ -174,18 +170,16 @@ class PluginUpdater {
 			$readme_text = $text;
 		}
 
-		$change_text = sprintf(
-			"** %s - %s **\n%s", $response->version, date( 'd/m/Y', strtotime( $release->published_at ) ), $change_text
-		);
-		$change_log = file_get_contents( dirname( $this->plugin_path ) . '/CHANGELOG.txt' );
-		if ( false !== $change_log ) {
-			$change_text .= "\r\n" . $change_log;
+		$change_log = file_get_contents( "https://raw.githubusercontent.com/{$this->username}/{$this->repository}/master/CHANGELOG.txt" );
+		if ( false == $change_log ) {
+			$change_log = file_get_contents( dirname( $this->plugin_path ) . '/CHANGELOG.txt' );
 		}
 
 		// Add Tabs
 		$response->sections = array(
 			'description' 	=> Parsedown::instance()->parse( $readme_text ),
-			'changelog' 	=> Parsedown::instance()->parse( $change_text )
+			'changelog' 	=> Parsedown::instance()->parse( $change_log ),
+			'release_info' 	=> Parsedown::instance()->parse( $change_text )
 		);
 
 		// set contributors
@@ -205,7 +199,7 @@ class PluginUpdater {
 		}
 		// set tested version
 		if ( isset( $readme_data['tested'] ) || isset( $change_data['tested'] ) ) {
-			$response->tested = isset( $change_data['tested'] ) ? $change_data['tested'] : $readme_data['contributors'];
+			$response->tested = isset( $change_data['tested'] ) ? $change_data['tested'] : $readme_data['tested'];
 		}
 		// set banner image
 		if ( isset( $readme_data['banner'] ) || isset( $change_data['banner'] ) ) {
