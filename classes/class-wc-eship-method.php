@@ -6,8 +6,8 @@
  *
  * @class 		WC_eShip_Method
  * @package		WooCommerce
- * @category	Shipping Module
- * @author		HElton Renda
+ * @category		Shipping Module
+ * @author		Elton Renda
  *
  **/
 if ( ! defined( 'ABSPATH' ) ) exit;
