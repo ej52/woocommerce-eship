@@ -14,7 +14,7 @@ class WC_eShip  {
 		$this->assets_url = esc_url( trailingslashit( plugins_url( '/assets/', $this->file ) ) );
 
 		$this->method_id 	= 'eship';
-		$this->api_url 		= 'http://128.199.53.6/api/v1/';
+		$this->api_url 		= 'https://www.eship.co.za/api/v1/';
 
 		// Load the settings.
 		$this->init_settings();
@@ -116,7 +116,7 @@ class WC_eShip  {
 			'username' => $this->settings['username'],
 			'password' => $this->settings['password'],
 		);
-		//$args['sslverify'] = true;
+		$args['sslverify'] = false;
 		$args['timeout'] = 60;
 		$args['user-agent'] = 'WooCommerce/' . WC()->version;
 
@@ -176,8 +176,8 @@ class WC_eShip  {
 
 			$lodged = $this->api( 'accept_bid', array(
 				'bid_id' 		=> $shipping_rate->quote->bid_id,
-				'callback'		=> site_url( '?eship=' . $this->settings['api_key'] . '&order=' . $order_id . '&status=' ),
-				'sandbox'		=> $this->settings['sanbox_mode']
+				//'callback'		=> site_url( '?eship=' . $this->settings['api_key'] . '&order=' . $order_id . '&status=' ),
+				'sandbox'		=> $this->settings['sanbox_mode'] == 'yes' ? 1 : 0
 			), 'post' );
 
 			if( ! empty( $lodged ) && isset( $lodged->tracking_id ) ) {
