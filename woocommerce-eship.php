@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce eShip
 Plugin URI: https://eship.co.za/
 Description: eShip deliveries for WooCommerce
-Version: 1.0.1
+Version: 1.0.0
 Author: <a href="http://www.semantica.co.za/">Semantica</a> (<a href="https://github.com/ej52/">ej52</a>)
 Requires at least: 4.0
 Tested up to: 4.2.2
