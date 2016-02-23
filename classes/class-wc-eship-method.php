@@ -530,7 +530,6 @@ class WC_eShip_Method extends WC_Shipping_Method
 						address_fields[ address_components[ addressType ].field ] = val;
 					}
 				}
-				console.log(address_fields);
 				document.getElementById('woocommerce_eship_store_address_fields').value = JSON.stringify( address_fields );
 			}
 
